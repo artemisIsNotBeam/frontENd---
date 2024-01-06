@@ -1,13 +1,32 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
+// pages
+import Products from './pages/Products';
+import Layout from './pages/Layout';
+import Home from './pages/Home';
+import Login from './pages/loginPages/Login';
+import Signup from './pages/loginPages/Signup';
+import Cart from './pages/Cart';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="/products" element={<Products />} />
+          <Route path="/login" element={<Login />}/>
+          <Route path="/signup" element={<Signup />}/>
+          <Route path="/cart" element={<Cart/>}/>
+        </Route>
+      </Routes>
+
+    </BrowserRouter>
   </React.StrictMode>
 );
 
