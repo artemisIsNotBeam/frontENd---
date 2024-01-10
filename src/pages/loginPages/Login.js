@@ -22,9 +22,16 @@ const Login = () => {
         throw new Error('Authentication failed');
       }
 
-      const data = await response.json();
-
-      console.log(data);
+      const data = await response.text();
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(data, 'text/html');
+      const textContent = doc.body.textContent;
+      console.log(textContent);
+      if (textContent.includes("You need to enable JavaScript to run this app.")){
+        alert("signed in successfully");
+      } else {
+        alert("sign in failed");
+      }
 
       // Handle successful login, e.g., redirect or update the UI
     } catch (error) {

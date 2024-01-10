@@ -2,12 +2,22 @@ import { useEffect, useState } from 'react';
 
 function Cart() {
   const [backendData, setBackendData] = useState([]);
+  const [productInfo, setproductInfo] = useState([]);
 
   useEffect(() => {
     fetch("/cart")
       .then(response => response.json())
       .then(data => {
         setBackendData(data);
+        data.map((item)=>{  
+          
+          fetch(`/products/${item.productId}`)
+            .then(response=>response.json())
+            .then(productData=>{
+              setproductInfo((prevData)=>[...prevData,productData]);
+            })
+        });
+
       });
   }, []);
 
@@ -15,16 +25,13 @@ function Cart() {
     <div className="App">
       <h1>Your Cart</h1>
       {backendData.length === 0 ? (
-        <p>Loading...</p>
+        <p>Loading... | this will only work if you're signed in</p>
       ) : (
-        backendData.map((item, index) => (
-          <div key={index}>
-            {Object.keys(item).map(key => (
-              <p key={key}>
-                <strong>{key}:</strong> {item[key]}
-              </p>
-            ))}
-            <hr />
+        backendData.map((item) => (
+          <div>
+            <p>quantity: {item["quantity"]}</p>
+            <p>productId: {item["productId"]}</p>
+            <p>{console.log(productInfo)}</p>
           </div>
         ))
       )}

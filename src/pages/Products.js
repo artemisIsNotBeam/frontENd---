@@ -22,8 +22,9 @@ function Products() {
         <p>loading</p>
       ): (
         // in this scenario, the () represents jsx and {} means javascript
-        backendData.map(item => (
+        backendData.map((item) => (
           <>
+            <p id="hidden">{item["id"]}</p>
             <p>Item: {item["name"]}</p>
             <p>description: {item["description"]}</p>
             <p>price: {item["price"]}</p>
