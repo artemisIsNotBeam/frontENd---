@@ -31,7 +31,10 @@ function Cart() {
           <div>
             <p>quantity: {item["quantity"]}</p>
             <p>productId: {item["productId"]}</p>
-            <p>{console.log(productInfo)}</p>
+{/* Find the matching productInfo based on productId */}
+{productInfo.find(product => product.id === item.productId)?.name && (
+              <p>{productInfo.find(product => product.id === item.productId).name}</p>
+            )}
           </div>
         ))
       )}

@@ -1,34 +1,48 @@
 import { useEffect, useState } from 'react';
 
 function Products() {
-  const [backendData, setBackendData] = useState([{}])
+  const [backendData, setBackendData] = useState([{}]);
 
-  useEffect(()=>{
+  useEffect(() => {
     fetch("/products").then(
       response => response.json()
     ).then(
-      data =>{
-        setBackendData(data)
+      data => {
+        setBackendData(data);
       }
     )
-  }, [])
+  }, []);
+
+  // Function to handle add to cart action
+  const addToCart = (id, quantity) => {
+    // Assuming a POST request is required, adjust as necessary
+    fetch(`/cart/${id}/${quantity}`, {
+      method: 'POST',
+      // Include headers and other configurations as required by your API
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log('Item added to cart:', data);
+      // Handle response or redirect user as needed
+    })
+    .catch(error => {
+      console.error('Error adding item to cart:', error);
+    });
+  };
 
   return (
     <div className="App">
-      <h1>
-        Products
-      </h1>
+      <h1>Products</h1>
       {(typeof backendData === 'undefined') ? (
-        <p>loading</p>
-      ): (
-        // in this scenario, the () represents jsx and {} means javascript
+        <p>Loading...</p>
+      ) : (
         backendData.map((item) => (
-          <>
-            <p id="hidden">{item["id"]}</p>
-            <p>Item: {item["name"]}</p>
-            <p>description: {item["description"]}</p>
-            <p>price: {item["price"]}</p>
-          </>
+          <div key={item.id}>
+            <p>Item: {item.name}</p>
+            <p>Description: {item.description}</p>
+            <p>Price: {item.price}</p>
+            <button onClick={() => addToCart(item.id, 1)}>Add to Cart</button>
+          </div>
         ))
       )}
     </div>
