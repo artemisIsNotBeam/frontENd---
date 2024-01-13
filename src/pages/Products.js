@@ -14,20 +14,14 @@ function Products() {
   }, []);
 
   // Function to handle add to cart action
-  const addToCart = (id, quantity) => {
+  const addToCart = async (id, quantity) => {
     // Assuming a POST request is required, adjust as necessary
-    fetch(`/cart/${id}/${quantity}`, {
+    const response = await fetch(`/cart/${id}/${quantity}`, {
       method: 'POST',
       // Include headers and other configurations as required by your API
     })
-    .then(response => response.json())
-    .then(data => {
-      console.log('Item added to cart:', data);
-      // Handle response or redirect user as needed
-    })
-    .catch(error => {
-      console.error('Error adding item to cart:', error);
-    });
+    console.log(response.status);
+    
   };
 
   return (

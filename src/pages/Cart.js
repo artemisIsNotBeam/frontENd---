@@ -21,6 +21,12 @@ function Cart() {
       });
   }, []);
 
+  const del = (id) =>{
+    fetch(`/cart/${id}`,{
+      method:'delete',
+    })
+  }
+
   return (
     <div className="App">
       <h1>Your Cart</h1>
@@ -35,6 +41,7 @@ function Cart() {
 {productInfo.find(product => product.id === item.productId)?.name && (
               <p>{productInfo.find(product => product.id === item.productId).name}</p>
             )}
+            <button onClick={()=>del(item["productId"])}>delete</button>
           </div>
         ))
       )}

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const Login = () => {
+const Login = ({signedin, setSignedIn}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -28,6 +28,7 @@ const Login = () => {
       const textContent = doc.body.textContent;
       console.log(textContent);
       if (textContent.includes("You need to enable JavaScript to run this app.")){
+        setSignedIn(true)
         alert("signed in successfully");
       } else {
         alert("sign in failed");
