@@ -33,17 +33,18 @@ function Cart() {
       {backendData.length === 0 ? (
         <p>Loading... | this will only work if you're signed in</p>
       ) : (
-        backendData.map((item) => (
+        <>
+        {backendData.map((item) => (
           <div>
             <p>quantity: {item["quantity"]}</p>
-            <p>productId: {item["productId"]}</p>
-{/* Find the matching productInfo based on productId */}
+            
 {productInfo.find(product => product.id === item.productId)?.name && (
-              <p>{productInfo.find(product => product.id === item.productId).name}</p>
+              <p>item: {productInfo.find(product => product.id === item.productId).name}</p>
             )}
             <button onClick={()=>del(item["productId"])}>delete</button>
           </div>
-        ))
+        ))}
+        </>
       )}
     </div>
   );
